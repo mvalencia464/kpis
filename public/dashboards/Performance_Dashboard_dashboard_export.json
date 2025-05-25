@@ -1,0 +1,378 @@
+{
+  "name": "Performance Dashboard",
+  "type": "organization",
+  "tiles": [
+    {
+      "height": 3,
+      "width": 4,
+      "x": 0,
+      "y": 0,
+      "options": {
+        "agg": "count",
+        "name": "New Leads By Month",
+        "type": "custom",
+        "where": {
+          ">": [
+            {
+              "field": [
+                "createdAt"
+              ]
+            },
+            {
+              "datetime": {
+                "fromNow": "P-12M"
+              }
+            }
+          ]
+        },
+        "groupBy": [
+          {
+            "fieldId": "createdAt",
+            "datetimeFormat": "YYYY MM"
+          }
+        ],
+        "chartType": "bar",
+        "targetType": "customer",
+        "thresholds": [
+          {
+            "max": 20,
+            "color": "#ef4444"
+          },
+          {
+            "max": 40,
+            "min": 20,
+            "color": "#f97316"
+          },
+          {
+            "min": 40,
+            "color": "#22c55e"
+          }
+        ]
+      }
+    },
+    {
+      "height": 3,
+      "width": 4,
+      "x": 4,
+      "y": 0,
+      "options": {
+        "agg": "sum",
+        "name": "Sales By Month",
+        "type": "custom",
+        "where": {
+          "and": [
+            {
+              "=": [
+                {
+                  "field": [
+                    "status"
+                  ]
+                },
+                {
+                  "value": "approved"
+                }
+              ]
+            },
+            {
+              ">": [
+                {
+                  "field": [
+                    "createdAt"
+                  ]
+                },
+                {
+                  "datetime": {
+                    "fromNow": "P-12M"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "fieldId": "amount",
+        "groupBy": [
+          {
+            "fieldId": "createdAt",
+            "datetimeFormat": "YYYY MM"
+          },
+          {
+            "fieldId": "status"
+          }
+        ],
+        "chartType": "bar",
+        "isStacked": false,
+        "targetType": "document",
+        "thresholds": [
+          {
+            "max": 150000,
+            "color": "#ef4444"
+          },
+          {
+            "max": 308000,
+            "min": 150000,
+            "color": "#f97316"
+          },
+          {
+            "min": 308000,
+            "color": "#22c55e"
+          }
+        ]
+      }
+    },
+    {
+      "height": 3,
+      "width": 4,
+      "x": 8,
+      "y": 0,
+      "options": {
+        "agg": "sum",
+        "name": "YTD Sales By Rep",
+        "type": "custom",
+        "where": {
+          "between": [
+            {
+              "field": [
+                "fullySignedAt"
+              ]
+            },
+            [
+              {
+                "datetime": {
+                  "startOf": "year"
+                }
+              },
+              {
+                "datetime": {
+                  "endOf": "year"
+                }
+              }
+            ]
+          ]
+        },
+        "fieldId": "amount",
+        "groupBy": [
+          {
+            "fieldId": "createdBy"
+          }
+        ],
+        "chartType": "bar",
+        "targetType": "document"
+      }
+    },
+    {
+      "height": 1,
+      "width": 2,
+      "x": 0,
+      "y": 3,
+      "options": {
+        "agg": "count",
+        "name": "# Pending Proposals",
+        "type": "custom",
+        "where": {
+          "and": [
+            {
+              "=": [
+                {
+                  "field": [
+                    "status"
+                  ]
+                },
+                {
+                  "value": "pending"
+                }
+              ]
+            },
+            {
+              ">": [
+                {
+                  "field": [
+                    "createdAt"
+                  ]
+                },
+                {
+                  "datetime": {
+                    "fromNow": "P-1W"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "chartType": "singleValue",
+        "targetType": "document"
+      }
+    },
+    {
+      "height": 1,
+      "width": 2,
+      "x": 2,
+      "y": 3,
+      "options": {
+        "agg": "sum",
+        "name": "$ Pending Proposals",
+        "type": "custom",
+        "where": {
+          "and": [
+            {
+              "=": [
+                {
+                  "field": [
+                    "status"
+                  ]
+                },
+                {
+                  "value": "pending"
+                }
+              ]
+            },
+            {
+              ">": [
+                {
+                  "field": [
+                    "createdAt"
+                  ]
+                },
+                {
+                  "datetime": {
+                    "fromNow": "P-1W"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "fieldId": "amount",
+        "chartType": "singleValue",
+        "targetType": "document"
+      }
+    },
+    {
+      "height": 1,
+      "width": 2,
+      "x": 4,
+      "y": 3,
+      "options": {
+        "agg": "count",
+        "name": "# Open Invoices",
+        "type": "custom",
+        "where": {
+          "and": [
+            {
+              ">": [
+                {
+                  "field": [
+                    "amount"
+                  ]
+                },
+                {
+                  "value": 0
+                }
+              ]
+            },
+            {
+              ">": [
+                {
+                  "field": [
+                    "createdAt"
+                  ]
+                },
+                {
+                  "datetime": {
+                    "fromNow": "P-1W"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "chartType": "singleValue",
+        "targetType": "payment"
+      }
+    },
+    {
+      "height": 1,
+      "width": 2,
+      "x": 6,
+      "y": 3,
+      "options": {
+        "agg": "sum",
+        "name": "$ Open Invoices",
+        "type": "custom",
+        "where": {
+          "and": [
+            {
+              ">": [
+                {
+                  "field": [
+                    "amount"
+                  ]
+                },
+                {
+                  "value": 0
+                }
+              ]
+            },
+            {
+              ">": [
+                {
+                  "field": [
+                    "createdAt"
+                  ]
+                },
+                {
+                  "datetime": {
+                    "fromNow": "P-1W"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "fieldId": "amount",
+        "chartType": "singleValue",
+        "targetType": "payment"
+      }
+    },
+    {
+      "height": 2,
+      "width": 4,
+      "x": 8,
+      "y": 3,
+      "options": {
+        "agg": "count",
+        "axis": "y",
+        "name": "Active Jobs by Status",
+        "type": "custom",
+        "where": {
+          ">": [
+            {
+              "field": [
+                "minApprovedCustomerOrderClosedOn"
+              ]
+            },
+            {
+              "date": {
+                "fromNow": "P-1W"
+              }
+            }
+          ]
+        },
+        "groupBy": [
+          {
+            "fieldId": "createdAt",
+            "datetimeFormat": "IYYY IW"
+          },
+          {
+            "customFieldId": "22NNwLibenZq"
+          }
+        ],
+        "chartType": "bar",
+        "targetType": "job"
+      }
+    }
+  ],
+  "roles": [],
+  "exportedAt": "2025-05-25T01:51:31.150Z",
+  "sourceOrganizationId": "22NNZt3rjGvv",
+  "exportVersion": "1.0"
+}

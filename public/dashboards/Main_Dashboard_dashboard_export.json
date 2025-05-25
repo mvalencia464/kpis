@@ -1,0 +1,274 @@
+{
+  "name": "Main Dashboard",
+  "type": "organization",
+  "tiles": [
+    {
+      "height": 3,
+      "width": 1,
+      "x": 0,
+      "y": 3,
+      "options": {
+        "name": "New Customers This Week",
+        "type": "dataView",
+        "where": {
+          "between": [
+            {
+              "field": [
+                "createdAt"
+              ]
+            },
+            [
+              {
+                "datetime": {
+                  "startOf": "week"
+                }
+              },
+              {
+                "datetime": {
+                  "endOf": "week"
+                }
+              }
+            ]
+          ]
+        },
+        "fields": [
+          {
+            "path": [
+              "node",
+              "name"
+            ]
+          }
+        ],
+        "sortBy": [],
+        "groupBy": null,
+        "targetType": "customer",
+        "primaryFieldCount": 3
+      }
+    },
+    {
+      "height": 3,
+      "width": 1,
+      "x": 1,
+      "y": 0,
+      "options": {
+        "agg": "count",
+        "name": "New Customers",
+        "type": "custom",
+        "where": {
+          "between": [
+            {
+              "field": [
+                "createdAt"
+              ]
+            },
+            [
+              {
+                "datetime": {
+                  "startOf": "month"
+                }
+              },
+              {
+                "datetime": {
+                  "endOf": "month"
+                }
+              }
+            ]
+          ]
+        },
+        "groupBy": [
+          {
+            "fieldId": "createdAt",
+            "datetimeFormat": "IYYY IW"
+          }
+        ],
+        "chartType": "bar",
+        "targetType": "customer",
+        "thresholds": [
+          {
+            "max": 5,
+            "color": "#ef4444"
+          },
+          {
+            "max": 10,
+            "min": 5,
+            "color": "#f97316"
+          },
+          {
+            "min": 10,
+            "color": "#22c55e"
+          }
+        ]
+      }
+    },
+    {
+      "height": 3,
+      "width": 1,
+      "x": 2,
+      "y": 0,
+      "options": {
+        "agg": "count",
+        "name": "Proposals Sent",
+        "type": "custom",
+        "where": {
+          "between": [
+            {
+              "field": [
+                "createdAt"
+              ]
+            },
+            [
+              {
+                "datetime": {
+                  "startOf": "month"
+                }
+              },
+              {
+                "datetime": {
+                  "endOf": "month"
+                }
+              }
+            ]
+          ]
+        },
+        "groupBy": [
+          {
+            "fieldId": "createdAt",
+            "datetimeFormat": "IYYY IW"
+          }
+        ],
+        "chartType": "bar",
+        "targetType": "document",
+        "thresholds": [
+          {
+            "max": 10,
+            "color": "#ef4444"
+          },
+          {
+            "max": 15,
+            "min": 10,
+            "color": "#f97316"
+          },
+          {
+            "min": 15,
+            "color": "#22c55e"
+          }
+        ]
+      }
+    },
+    {
+      "height": 3,
+      "width": 2,
+      "x": 1,
+      "y": 3,
+      "options": {
+        "agg": "count",
+        "axis": "y",
+        "name": "Proposals Created",
+        "type": "custom",
+        "where": {
+          "between": [
+            {
+              "field": [
+                "createdAt"
+              ]
+            },
+            [
+              {
+                "datetime": {
+                  "startOf": "month"
+                }
+              },
+              {
+                "datetime": {
+                  "endOf": "month"
+                }
+              }
+            ]
+          ]
+        },
+        "groupBy": [
+          {
+            "fieldId": "status"
+          },
+          {
+            "fieldId": "createdBy"
+          }
+        ],
+        "chartType": "bar",
+        "isStacked": false,
+        "targetType": "document"
+      }
+    },
+    {
+      "height": 3,
+      "width": 1,
+      "x": 0,
+      "y": 0,
+      "options": {
+        "type": "actionItems"
+      }
+    },
+    {
+      "height": 3,
+      "width": 1,
+      "x": 0,
+      "y": 6,
+      "options": {
+        "type": "activity"
+      }
+    },
+    {
+      "height": 3,
+      "width": 2,
+      "x": 1,
+      "y": 6,
+      "options": {
+        "agg": "sum",
+        "name": "Approved Contracts by Week",
+        "type": "custom",
+        "where": {
+          ">": [
+            {
+              "field": [
+                "createdAt"
+              ]
+            },
+            {
+              "datetime": {
+                "fromNow": "P-12M"
+              }
+            }
+          ]
+        },
+        "fieldId": "approvedOrders",
+        "groupBy": [
+          {
+            "fieldId": "createdAt",
+            "datetimeFormat": "IYYY IW"
+          }
+        ],
+        "chartType": "bar",
+        "targetType": "job",
+        "thresholds": [
+          {
+            "max": 35000,
+            "color": "#ef4444"
+          },
+          {
+            "max": 77000,
+            "min": 35000,
+            "color": "#f97316"
+          },
+          {
+            "min": 77000,
+            "color": "#22c55e"
+          }
+        ]
+      }
+    }
+  ],
+  "roles": [],
+  "exportedAt": "2025-05-25T01:51:26.426Z",
+  "sourceOrganizationId": "22NNZt3rjGvv",
+  "exportVersion": "1.0"
+}

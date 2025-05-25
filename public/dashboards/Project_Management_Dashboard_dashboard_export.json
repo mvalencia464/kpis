@@ -1,0 +1,132 @@
+{
+  "name": "Project Management Dashboard",
+  "type": "organization",
+  "tiles": [
+    {
+      "height": 3,
+      "width": 4,
+      "x": 0,
+      "y": 0,
+      "options": {
+        "agg": "count",
+        "name": "Jobs in Production",
+        "type": "custom",
+        "where": {
+          ">": [
+            {
+              "field": [
+                "createdAt"
+              ]
+            },
+            {
+              "datetime": {
+                "fromNow": "P-1W"
+              }
+            }
+          ]
+        },
+        "groupBy": [
+          {
+            "customFieldId": "22NNwLibenZq"
+          }
+        ],
+        "chartType": "pie",
+        "targetType": "job"
+      }
+    },
+    {
+      "height": 3,
+      "width": 4,
+      "x": 4,
+      "y": 0,
+      "options": {
+        "agg": "avg",
+        "name": "Projected Profit Margin",
+        "type": "custom",
+        "where": {
+          "between": [
+            {
+              "field": [
+                "createdAt"
+              ]
+            },
+            [
+              {
+                "datetime": {
+                  "startOf": "year"
+                }
+              },
+              {
+                "datetime": {
+                  "endOf": "year"
+                }
+              }
+            ]
+          ]
+        },
+        "fieldId": "projectedProfitPerTaskDay",
+        "groupBy": [
+          {
+            "fieldId": "createdAt",
+            "datetimeFormat": "IYYY IW"
+          }
+        ],
+        "chartType": "line",
+        "targetType": "job"
+      }
+    },
+    {
+      "height": 1,
+      "width": 2,
+      "x": 0,
+      "y": 3,
+      "options": {
+        "agg": "count",
+        "name": "Noncompliant Vendors",
+        "type": "custom",
+        "where": {
+          "between": [
+            {
+              "field": [
+                "cfv:22NNZt4hNNfR",
+                "values"
+              ]
+            },
+            [
+              {
+                "date": {
+                  "startOf": "quarter"
+                }
+              },
+              {
+                "date": {
+                  "endOf": "quarter"
+                }
+              }
+            ]
+          ]
+        },
+        "groupBy": [
+          {
+            "fieldId": "name"
+          }
+        ],
+        "chartType": "bar",
+        "targetType": "vendor"
+      }
+    },
+    {
+      "height": 2,
+      "width": 4,
+      "x": 0,
+      "y": 4,
+      "options": {
+        "type": "activity"
+      }
+    }
+  ],
+  "roles": [],
+  "exportedAt": "2025-05-25T01:51:33.138Z",
+  "sourceOrganizationId": "22NNZt3rjGvv",
+  "exportVersion": "1.0"
+}

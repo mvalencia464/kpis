@@ -1,0 +1,184 @@
+{
+  "name": "Sales & Leads Dashboard",
+  "type": "organization",
+  "tiles": [
+    {
+      "height": 3,
+      "width": 4,
+      "x": 0,
+      "y": 0,
+      "options": {
+        "agg": "count",
+        "name": "New Leads This Month",
+        "type": "custom",
+        "where": {
+          "between": [
+            {
+              "field": [
+                "createdAt"
+              ]
+            },
+            [
+              {
+                "datetime": {
+                  "startOf": "month"
+                }
+              },
+              {
+                "datetime": {
+                  "endOf": "month"
+                }
+              }
+            ]
+          ]
+        },
+        "groupBy": [
+          {
+            "fieldId": "createdAt",
+            "datetimeFormat": "YYYY-MM-DD"
+          }
+        ],
+        "chartType": "bar",
+        "targetType": "customer"
+      }
+    },
+    {
+      "height": 3,
+      "width": 4,
+      "x": 4,
+      "y": 0,
+      "options": {
+        "agg": "count",
+        "name": "Customer Status Breakdown (This Quarter)",
+        "type": "custom",
+        "where": {
+          "between": [
+            {
+              "field": [
+                "createdAt"
+              ]
+            },
+            [
+              {
+                "datetime": {
+                  "startOf": "quarter"
+                }
+              },
+              {
+                "datetime": {
+                  "endOf": "quarter"
+                }
+              }
+            ]
+          ]
+        },
+        "groupBy": [
+          {
+            "fieldId": "status"
+          }
+        ],
+        "chartType": "pie",
+        "targetType": "customer"
+      }
+    },
+    {
+      "height": 3,
+      "width": 4,
+      "x": 8,
+      "y": 0,
+      "options": {
+        "agg": "count",
+        "name": "Proposal Status Pipeline",
+        "type": "custom",
+        "where": {
+          "between": [
+            { "field": ["createdAt"] },
+            [
+              { "datetime": { "startOf": "year" } },
+              { "datetime": { "endOf": "year" } }
+            ]
+          ]
+        },
+        "groupBy": [
+          {
+            "fieldId": "status"
+          }
+        ],
+        "chartType": "bar",
+        "targetType": "document"
+      }
+    },
+    {
+      "height": 3,
+      "width": 6,
+      "x": 0,
+      "y": 3,
+      "options": {
+        "agg": "sum",
+        "name": "Sales Revenue YTD by Month",
+        "type": "custom",
+        "where": {
+          "and": [
+            [
+              { "field": ["status"] },
+              "in",
+              ["approved", "complete"]
+            ],
+            {
+              "between": [
+                {
+                  "field": [
+                    "approvedAt"
+                  ]
+                },
+                [
+                  {
+                    "datetime": {
+                      "startOf": "year"
+                    }
+                  },
+                  {
+                    "datetime": {
+                      "endOf": "year"
+                    }
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        "fieldId": "amount",
+        "groupBy": [
+          {
+            "fieldId": "approvedAt",
+            "datetimeFormat": "YYYY-MM"
+          }
+        ],
+        "chartType": "line",
+        "targetType": "document"
+      }
+    },
+    {
+      "height": 3,
+      "width": 3,
+      "x": 6,
+      "y": 3,
+      "options": {
+        "type": "actionItems"
+        }
+    },
+    {
+      "height": 3,
+      "width": 3,
+      "x": 9,
+      "y": 3,
+      "options": {
+        "type": "activity"
+      }
+    }
+  ],
+  "roles": [],
+  "exportedAt": "2025-05-24T19:23:03.000Z",
+  "sourceOrganizationId": "TEMPLATE_SALES_LEADS_V5",
+  "exportVersion": "1.0"
+}
