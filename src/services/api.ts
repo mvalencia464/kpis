@@ -2,7 +2,7 @@ import { Dashboard, DashboardDetails } from '../types/dashboard';
 
 const API_ENDPOINT = import.meta.env.DEV
   ? '/api/pave'
-  : 'https://api.jobtread.com/pave';
+  : '/.netlify/functions/api-proxy';
 const API_TIMEOUT = 30000; // 30 seconds timeout
 
 /**
@@ -333,8 +333,8 @@ export async function deleteDashboard(grantKey: string, dashboardId: string) {
   };
 
   try {
-    // For delete operations, we'll use the direct API call approach
-    const response = await fetch('/api/pave', {
+    // Use the same API endpoint as other operations
+    const response = await fetch(API_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
