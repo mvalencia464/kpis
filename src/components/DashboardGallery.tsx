@@ -154,7 +154,7 @@ export const DashboardGallery: React.FC<DashboardGalleryProps> = ({ connectionSt
       </div>
 
       <div className={viewMode === 'grid'
-        ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'
+        ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6'
         : 'space-y-4'
       }>
         {filteredDashboards.map((template) => (
@@ -180,10 +180,10 @@ export const DashboardGallery: React.FC<DashboardGalleryProps> = ({ connectionSt
               />
             </div>
 
-            <div className={`${viewMode === 'list' ? 'flex-1' : 'p-4'}`}>
+            <div className={`${viewMode === 'list' ? 'flex-1' : 'p-3 sm:p-4'}`}>
               <div className="flex items-start justify-between mb-2">
-                <h3 className="text-lg font-semibold text-white">{template.name}</h3>
-                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-600 text-gray-200">
+                <h3 className="text-base sm:text-lg font-semibold text-white pr-2">{template.name}</h3>
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-600 text-gray-200 flex-shrink-0">
                   <Tag className="h-3 w-3 mr-1" />
                   {template.category}
                 </span>
@@ -216,7 +216,7 @@ export const DashboardGallery: React.FC<DashboardGalleryProps> = ({ connectionSt
                 )}
               </div>
 
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1 sm:gap-2">
                 <Button
                   onClick={() => previewDashboard(template)}
                   variant="secondary"

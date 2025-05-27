@@ -17,7 +17,15 @@ export const ImagePreviewModal: React.FC<ImagePreviewModalProps> = ({
   title,
   downloadName
 }) => {
-  const [zoom, setZoom] = useState(0.5);
+  // Set initial zoom based on screen size - smaller for mobile
+  const getInitialZoom = () => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 768 ? 0.3 : 0.5; // 30% for mobile, 50% for desktop
+    }
+    return 0.5;
+  };
+
+  const [zoom, setZoom] = useState(getInitialZoom());
   const [rotation, setRotation] = useState(0);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
@@ -72,7 +80,7 @@ export const ImagePreviewModal: React.FC<ImagePreviewModalProps> = ({
   };
 
   const handleReset = () => {
-    setZoom(0.5);
+    setZoom(getInitialZoom());
     setRotation(0);
     setPosition({ x: 0, y: 0 });
   };
@@ -135,16 +143,16 @@ export const ImagePreviewModal: React.FC<ImagePreviewModalProps> = ({
       {/* Modal Content */}
       <div className="relative w-full h-full flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 bg-black bg-opacity-50 text-white">
-          <h2 className="text-lg font-semibold truncate">{title}</h2>
-          <div className="flex items-center gap-2">
+        <div className="flex items-center justify-between p-2 sm:p-4 bg-black bg-opacity-50 text-white">
+          <h2 className="text-sm sm:text-lg font-semibold truncate">{title}</h2>
+          <div className="flex items-center gap-1 sm:gap-2 flex-wrap">
             <Button
               onClick={handleZoomOut}
               variant="secondary"
               size="sm"
               icon={<ZoomOut className="h-4 w-4" />}
             >
-              Zoom Out
+              <span className="hidden sm:inline">Zoom Out</span>
             </Button>
             <Button
               onClick={handleZoomIn}
@@ -152,7 +160,7 @@ export const ImagePreviewModal: React.FC<ImagePreviewModalProps> = ({
               size="sm"
               icon={<ZoomIn className="h-4 w-4" />}
             >
-              Zoom In
+              <span className="hidden sm:inline">Zoom In</span>
             </Button>
             <Button
               onClick={handleRotate}
@@ -160,7 +168,7 @@ export const ImagePreviewModal: React.FC<ImagePreviewModalProps> = ({
               size="sm"
               icon={<RotateCw className="h-4 w-4" />}
             >
-              Rotate
+              <span className="hidden sm:inline">Rotate</span>
             </Button>
             <Button
               onClick={handleReset}
@@ -175,7 +183,7 @@ export const ImagePreviewModal: React.FC<ImagePreviewModalProps> = ({
               size="sm"
               icon={<Download className="h-4 w-4" />}
             >
-              Download
+              <span className="hidden sm:inline">Download</span>
             </Button>
             <Button
               onClick={handleFullscreen}
@@ -183,7 +191,7 @@ export const ImagePreviewModal: React.FC<ImagePreviewModalProps> = ({
               size="sm"
               icon={<Maximize2 className="h-4 w-4" />}
             >
-              Open in Tab
+              <span className="hidden sm:inline">Open in Tab</span>
             </Button>
             <Button
               onClick={onClose}
@@ -191,7 +199,7 @@ export const ImagePreviewModal: React.FC<ImagePreviewModalProps> = ({
               size="sm"
               icon={<X className="h-4 w-4" />}
             >
-              Close
+              <span className="hidden sm:inline">Close</span>
             </Button>
           </div>
         </div>
@@ -226,9 +234,14 @@ export const ImagePreviewModal: React.FC<ImagePreviewModalProps> = ({
         </div>
 
         {/* Footer with zoom info */}
-        <div className="p-2 bg-black bg-opacity-50 text-white text-center text-sm">
-          Zoom: {Math.round(zoom * 100)}% | Rotation: {rotation}° |
-          {zoom > 0.6 ? ' Click and drag to pan' : ' Zoom in to enable panning'}
+        <div className="p-2 bg-black bg-opacity-50 text-white text-center text-xs sm:text-sm">
+          <span className="block sm:inline">Zoom: {Math.round(zoom * 100)}%</span>
+          <span className="hidden sm:inline"> | </span>
+          <span className="block sm:inline">Rotation: {rotation}°</span>
+          <span className="hidden sm:inline"> | </span>
+          <span className="block sm:inline">
+            {zoom > 0.6 ? 'Click and drag to pan' : 'Zoom in to enable panning'}
+          </span>
         </div>
       </div>
     </div>
